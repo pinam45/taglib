@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 2.8.0 FATAL_ERROR)
 
-project(taglib)
-
 if(NOT ${CMAKE_VERSION} VERSION_LESS 2.8.12)
   cmake_policy(SET CMP0022 OLD)
 endif()
+if(NOT ${CMAKE_VERSION} VERSION_LESS 3.0)
+  # silence warning when project is loaded from a parent dir requesting cmake 3.0 or later version
+  cmake_policy(SET CMP0048 OLD)
+endif()
+
+project(taglib)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
