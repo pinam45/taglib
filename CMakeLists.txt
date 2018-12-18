@@ -8,6 +8,12 @@ endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
+# Check if taglib is being used directly or via add_subdirectory
+set(TAGLIB_MASTER_PROJECT OFF)
+if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  set(TAGLIB_MASTER_PROJECT ON)
+endif()
+
 if(DEFINED ENABLE_STATIC)
   message(FATAL_ERROR "This option is no longer available, use BUILD_SHARED_LIBS instead")
 endif()
@@ -156,9 +162,18 @@ if(TAGLIB_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.cmake" "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
-file(COPY doc/taglib.png DESTINATION doc)
-add_custom_target(docs doxygen)
+option(TAGLIB_BUILD_DOCUMENTATION "Build documentation" ${TAGLIB_MASTER_PROJECT})
+if(TAGLIB_BUILD_DOCUMENTATION)
+  find_program(DOXYGEN doxygen)
+  if(${DOXYGEN} STREQUAL DOXYGEN-NOTFOUND)
+    message(WARNING "Doxygen not found, docs target not generated")
+  else()
+    message(STATUS "Found Doxygen: ${DOXYGEN}")
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.cmake" "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
+    file(COPY doc/taglib.png DESTINATION doc)
+    add_custom_target(docs ${DOXYGEN})
+  endif()
+endif()
 
 # uninstall target
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
