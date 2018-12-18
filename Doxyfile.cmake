@@ -61,7 +61,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = @CMAKE_SOURCE_DIR@/taglib
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/taglib
 FILE_PATTERNS          = *.h \
                          *.hh \
                          *.H
@@ -96,9 +96,9 @@ IGNORE_PREFIX          =
 GENERATE_HTML          = YES
 HTML_OUTPUT            = html
 HTML_FILE_EXTENSION    = .html
-HTML_HEADER            = @CMAKE_SOURCE_DIR@/doc/api-header.html
-HTML_FOOTER            = @CMAKE_SOURCE_DIR@/doc/api-footer.html
-HTML_STYLESHEET        = @CMAKE_SOURCE_DIR@/doc/taglib-api.css
+HTML_HEADER            = @CMAKE_CURRENT_SOURCE_DIR@/doc/api-header.html
+HTML_FOOTER            = @CMAKE_CURRENT_SOURCE_DIR@/doc/api-footer.html
+HTML_STYLESHEET        = @CMAKE_CURRENT_SOURCE_DIR@/doc/taglib-api.css
 HTML_ALIGN_MEMBERS     = YES
 GENERATE_HTMLHELP      = NO
 CHM_FILE               = 

@@ -176,8 +176,11 @@ if(TAGLIB_BUILD_DOCUMENTATION)
 endif()
 
 # uninstall target
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
+option(TAGLIB_GENERATE_UNINSTALL "Generate uninstall target" ${TAGLIB_MASTER_PROJECT})
+if(TAGLIB_GENERATE_UNINSTALL)
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
 
-if(NOT TARGET uninstall)
-  add_custom_target(uninstall COMMAND "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+  if(NOT TARGET uninstall)
+    add_custom_target(uninstall COMMAND "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+  endif()
 endif()
