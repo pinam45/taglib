@@ -8,7 +8,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/../bindings/c/
 )
 
-if(NOT BUILD_SHARED_LIBS)
+if(NOT TAGLIB_BUILD_SHARED_LIBS)
   add_definitions(-DTAGLIB_STATIC)
 endif()
 
